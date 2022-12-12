@@ -24,9 +24,7 @@ class Solution {
                 sum += l2.val;
                 l2 = l2.next;
             }
-            System.out.println("sum: "+ sum);
             carry = sum / 10;
-            System.out.println("sum % 10: " + sum % 10);
             sumNode.next = new ListNode(sum % 10);
             sumNode = sumNode.next;
         }
