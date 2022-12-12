@@ -11,27 +11,25 @@ import java.math.BigInteger;
  */
 class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        StringBuilder sb = new StringBuilder();
-        reverse(l1, sb);
-        BigInteger val1 = new BigInteger(sb.toString());
-        sb = new StringBuilder();
-        reverse(l2, sb);
-        String sum = new BigInteger(sb.toString()).add(val1) + "";
-        ListNode result = new ListNode();
-        ListNode temp = result;
-        for (int i = sum.length() - 1; i>= 0; i--) {
-            temp.val = sum.charAt(i) - '0';
-            if (i != 0) {
-                temp.next = new ListNode();
-                temp = temp.next;
+        ListNode dummy = new ListNode();
+        ListNode sumNode = dummy;
+        int sum = 0, carry = 0;
+        while (l1 != null || l2 != null || carry > 0) {
+            sum = carry;
+            if (l1 != null) {
+                sum += l1.val;
+                l1 = l1.next;
             }
+            if (l2 != null) {
+                sum += l2.val;
+                l2 = l2.next;
+            }
+            System.out.println("sum: "+ sum);
+            carry = sum / 10;
+            System.out.println("sum % 10: " + sum % 10);
+            sumNode.next = new ListNode(sum % 10);
+            sumNode = sumNode.next;
         }
-        return result;
-    }
-
-    public void reverse(ListNode list, StringBuilder s) {
-        if (list == null) return;
-        reverse(list.next, s);
-        s.append(list.val);
+        return dummy.next;
     }
 }
