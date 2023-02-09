@@ -1,12 +1,17 @@
 class Solution {
     public int pivotIndex(int[] nums) { 
-        int left = 0;
-        int right = Arrays.stream(nums).sum();
+        int[] left = new int[nums.length];
+        for (int i=1; i<left.length; i++) {
+            left[i] = left[i-1] + nums[i-1];
+        }
+        
+        int[] right = new int[nums.length];
+        for (int i=right.length-2; i>=0; i--) {
+            right[i] = right[i+1] + nums[i+1];
+        }
         
         for (int i=0; i<nums.length; i++) {
-            right -= nums[i];
-            if (right == left) return i;
-            left += nums[i];
+            if (left[i] == right[i]) return i;
         }
         
         return -1;
