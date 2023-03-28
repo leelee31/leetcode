@@ -9,16 +9,15 @@ class Solution {
             }
         }
         
-        List<Integer> list = new ArrayList<>();
+        int[] ans = new int[Math.min(nums1.length, nums2.length)];
+        int idx = 0;
         for (int n : nums2) {
             if (map.containsKey(n) && map.get(n) > 0) {
+                ans[idx++] = n;
                 map.put(n, map.get(n) - 1);
-                list.add(n);
             }
         }
         
-        return list.stream()
-                .mapToInt(Integer::intValue)
-                .toArray();
+        return Arrays.copyOfRange(ans, 0, idx);
     }
 }
