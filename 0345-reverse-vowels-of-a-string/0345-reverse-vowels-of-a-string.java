@@ -1,27 +1,25 @@
 class Solution {
     public String reverseVowels(String s) {
-        List<Character> list = new ArrayList<>();
-        char[] cArr = s.toCharArray();
-        for (int i=0; i<cArr.length; i++) {
-            if (cArr[i] == 'a' || cArr[i] == 'e'  || cArr[i] == 'i' 
-                || cArr[i] == 'o'  || cArr[i] == 'u' 
-                || cArr[i] == 'A' || cArr[i] == 'E'  || cArr[i] == 'I' 
-                || cArr[i] == 'O'  || cArr[i] == 'U') {
-                list.add(cArr[i]);
-                cArr[i] = '*';
-            }
-        }
+        Set<Character> vowels = new HashSet<>(Arrays.asList('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'));
+        char[] chars = s.toCharArray();
+        int start = 0, end = s.length() - 1;
         
-        StringBuilder sb = new StringBuilder();
-        int idx = list.size() -1;
-        for (char c : cArr) {
-            if (c == '*') {
-                sb.append(list.get(idx--));
-            } else {
-                sb.append(c);
+        while(start<end) {
+            while (start<end && !vowels.contains(chars[start])) {
+                start++;
             }
+            while (start<end && !vowels.contains(chars[end])) {
+                end--;
+            }
+
+            char temp = chars[start];
+            chars[start] = chars[end];
+            chars[end] = temp;
+            
+            start++;
+            end--;
         }
-        
-        return sb.toString();
+
+        return new String(chars);
     }
 }
